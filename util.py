@@ -3,7 +3,11 @@ from typing import List
 import pandas as pd
 import numpy as np
 from PIL import Image
-
+names_dict = {
+    "check": 1,
+    "uncheck": 0,
+    "other": 2
+}
 def list_directory_recursively(directory_path: str) -> List[str] :
     result_files = []
     for root, dirs, files in os.walk(directory_path):
@@ -30,13 +34,6 @@ def img_to_df(img_dir: str) -> pd.DataFrame:
 
 
 def name_to_idx(names):
-    names_dict = {}
-    ordered_names = np.sort(names)
-    idx = 0
-    for name in ordered_names:
-        if None == names_dict.get(name):
-            names_dict[name] = idx
-            idx = idx+ 1
     return [names_dict.get(name) for name in names]
 
 def get_image(img_root:str, image_path: str, shape: tuple[int,int] = None) -> np.array:

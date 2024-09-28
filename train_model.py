@@ -7,6 +7,7 @@ import create_model
 from config import train_dir, validation_dir, checkpoint_path, last_checkpoint_path
 from MyKerasImageGenerator import MyKerasImageGenerator
 from util import img_to_df
+from tensorflow.keras.callbacks import TensorBoard
 
 # Define directory paths
 
@@ -41,10 +42,18 @@ validation_datagen = MyKerasImageGenerator(
 #    class_mode='binary'
 #)
 
-cp_callback = tf.keras.callbacks.ModelCheckpoint(
+# TensorBoard(log_dir="./log",
+#                          histogram_freq=1,
+#                          write_graph=True,
+#                          write_images=True,
+#                          update_freq='epoch',
+#                          profile_batch=2,
+#                          embeddings_freq=1)
+
+cp_callback = [tf.keras.callbacks.ModelCheckpoint(
     filepath=checkpoint_path,
     verbose=1,
-    save_weights_only=True) # *n_batches
+    save_weights_only=True)] # *n_batches
 
 # Define a simple model
 model = create_model.create_model()
